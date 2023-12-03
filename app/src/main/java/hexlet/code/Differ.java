@@ -1,7 +1,5 @@
 package hexlet.code;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.io.File;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -11,19 +9,14 @@ import java.util.TreeSet;
 public class Differ {
 
     public static String generate(File file1, File file2) throws Exception {
-        Map<String, Object> data1 = getData(file1);
-        Map<String, Object> data2 = getData(file2);
+        Map<String, Object> data1 = Parser.getDataByFile(file1);
+        Map<String, Object> data2 = Parser.getDataByFile(file2);
 
         Map<String, String> diffMap = genDiff(data1, data2);
         String diffs = diffToString(diffMap, data1, data2);
         return diffs;
     }
 
-    public static Map<String, Object> getData(File file) throws Exception {
-        ObjectMapper mapper = new ObjectMapper();
-        Map<String, Object> data = mapper.readValue(file, Map.class);
-        return data;
-    }
 
     public static Map<String, String> genDiff(Map<String, Object> data1, Map<String, Object> data2) {
 
