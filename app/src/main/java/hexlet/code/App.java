@@ -24,14 +24,14 @@ public class App implements Callable<Integer> {
     @Parameters(paramLabel = "filepath2", description = "path to second file")
     static File file2;
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         int exitCode = new CommandLine(new App()).execute(args);
         System.exit(exitCode);
     }
 
     @Override
     public Integer call() throws Exception {
-        System.out.println(Differ.generate(file1, file2));
+        System.out.println(Differ.generate(file1, file2, format));
         return 0;
     }
 }
