@@ -2,7 +2,6 @@ package hexlet.code;
 
 import org.junit.jupiter.api.Test;
 
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -106,7 +105,7 @@ public class DifferTest {
         Path filePath2 = Path.of("src/test/resources/file2.yaml");
 
         String actual = Differ.generate(filePath1.toFile(), filePath2.toFile(), "json");
-        String expectedJson = Files.readString(Path.of("src/test/resources/expected.json"));
+        String expectedJson = Files.readString(Path.of("src/test/resources/expectedYaml.json"));
 
         assertThat(actual).isEqualTo(expectedJson);
     }
