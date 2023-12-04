@@ -19,10 +19,10 @@ public class App implements Callable<Integer> {
     private String format;
 
     @Parameters(paramLabel = "filepath1", description = "path to first file")
-    static File file1;
+    private static File file1;
 
     @Parameters(paramLabel = "filepath2", description = "path to second file")
-    static File file2;
+    private static File file2;
 
     public static void main(String[] args) {
         int exitCode = new CommandLine(new App()).execute(args);

@@ -1,12 +1,12 @@
 package hexlet.code;
 
-import hexlet.code.formatter.Stylish;
-
 import java.io.File;
-import java.util.LinkedHashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeSet;
+import java.util.Set;
+import java.util.LinkedHashMap;
 import java.util.Objects;
 
 public class Differ {
@@ -15,31 +15,46 @@ public class Differ {
         Map<String, Object> data1 = Parser.parse(file1);
         Map<String, Object> data2 = Parser.parse(file2);
 
-        Map<String, String> diffMap = genDiff(data1, data2);
+        List<Map<String, Object>> diffMap = genDiff(data1, data2);
 
-        return Formatter.styleByFormat(diffMap, data1, data2, format);
+        return Formatter.styleByFormat(diffMap, format);
     }
 
     public static String generate(File file1, File file2) throws Exception {
         return generate(file1, file2, "stylish");
     }
 
-    public static Map<String, String> genDiff(Map<String, Object> data1, Map<String, Object> data2) {
+    public static List<Map<String, Object>> genDiff(Map<String, Object> data1, Map<String, Object> data2) {
 
-        Map<String, String> result = new LinkedHashMap<>();
-        Set<String> keys = new TreeSet<>(data1.keySet());
-        keys.addAll(data2.keySet());
+        List<Map<String, Object>> result = new ArrayList<>();
+        Set<String> keysSet = new TreeSet<>(data1.keySet());
+        keysSet.addAll(data2.keySet());
 
-        for (String key : keys) {
+        for (String key : keysSet) {
+            Map<String, Object> map = new LinkedHashMap<>();
+
             if (!data1.containsKey(key)) {
-                result.put(key, "added");
+                map.put("key", key);
+                map.put("newValue", data2.get(key));
+                map.put("status", "added");
+
             } else if (!data2.containsKey(key)) {
-                result.put(key, "deleted");
+                map.put("key", key);
+                map.put("oldValue", data1.get(key));
+                map.put("status", "deleted");
+
             } else if (!Objects.equals(data1.get(key), data2.get(key))) {
-                result.put(key, "changed");
+                map.put("key", key);
+                map.put("oldValue", data1.get(key));
+                map.put("newValue", data2.get(key));
+                map.put("status", "changed");
+
             } else {
-                result.put(key, "unchanged");
+                map.put("key", key);
+                map.put("oldValue", data1.get(key));
+                map.put("status", "unchanged");
             }
+            result.add(map);
         }
         return result;
     }

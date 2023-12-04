@@ -4,21 +4,28 @@ import java.util.List;
 import java.util.Map;
 
 public class Plain {
-    public static String format(Map<String, String> diffs, Map<String, Object> data1, Map<String, Object> data2) {
+    public static String format(List<Map<String, Object>> diffs) {
         StringBuilder stringBuilder = new StringBuilder("\n");
 
-        for (String key : diffs.keySet()) {
+        for (Map<String, Object> map : diffs) {
 
-            switch (diffs.get(key)) {
+            String key = map.get("key").toString();
+            var oldValue = map.get("oldValue");
+            var newValue = map.get("newValue");
 
-                case "added" -> stringBuilder.append("Property ").append(formatValue(key)).append(" was added with value: ")
-                        .append(formatValue(data2.get(key))).append("\n");
+            switch (map.get("status").toString()) {
+
+                case "added" -> stringBuilder.append("Property ").append(formatValue(key))
+                        .append(" was added with value: ").append(formatValue(newValue)).append("\n");
 
                 case "deleted" -> stringBuilder.append("Property ").append(formatValue(key)).append(" was removed\n");
 
-                case "changed" -> stringBuilder.append("Property ").append(formatValue(key)).append(" was updated. ")
-                        .append("From ").append(formatValue(data1.get(key))).append(" to ")
-                        .append(formatValue(data2.get(key))).append("\n");
+                case "changed" -> stringBuilder.append("Property ").append(formatValue(key))
+                        .append(" was updated. ").append("From ").append(formatValue(oldValue))
+                        .append(" to ").append(formatValue(newValue)).append("\n");
+
+                default -> {
+                }
             }
         }
         return stringBuilder.toString().trim();

@@ -20,8 +20,7 @@ public class Parser {
             case "json" -> mapper = new JsonMapper();
             default -> mapper = new ObjectMapper();
         }
-        TreeMap<String, Object> result = mapper.readValue(Files.readString(file.toPath()), new TypeReference<>() { });
-        return result;
+        return mapper.<TreeMap<String, Object>>readValue(Files.readString(file.toPath()), new TypeReference<>() { });
     }
 
     public static String getFileType(File file) {
