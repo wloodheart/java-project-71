@@ -2,6 +2,8 @@ package hexlet.code;
 
 import org.junit.jupiter.api.Test;
 
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -49,80 +51,6 @@ public class DifferTest {
             Property 'setting2' was updated. From 200 to 300
             Property 'setting3' was updated. From true to 'none'""";
 
-    String expectedJson = """
-            [ {
-              "key" : "chars1",
-              "oldValue" : [ "a", "b", "c" ],
-              "status" : "unchanged"
-            }, {
-              "key" : "chars2",
-              "oldValue" : [ "d", "e", "f" ],
-              "newValue" : false,
-              "status" : "changed"
-            }, {
-              "key" : "checked",
-              "oldValue" : false,
-              "newValue" : true,
-              "status" : "changed"
-            }, {
-              "key" : "default",
-              "oldValue" : null,
-              "newValue" : [ "value1", "value2" ],
-              "status" : "changed"
-            }, {
-              "key" : "id",
-              "oldValue" : 45,
-              "newValue" : null,
-              "status" : "changed"
-            }, {
-              "key" : "key1",
-              "oldValue" : "value1",
-              "status" : "deleted"
-            }, {
-              "key" : "key2",
-              "newValue" : "value2",
-              "status" : "added"
-            }, {
-              "key" : "numbers1",
-              "oldValue" : [ 1, 2, 3, 4 ],
-              "status" : "unchanged"
-            }, {
-              "key" : "numbers2",
-              "oldValue" : [ 2, 3, 4, 5 ],
-              "newValue" : [ 22, 33, 44, 55 ],
-              "status" : "changed"
-            }, {
-              "key" : "numbers3",
-              "oldValue" : [ 3, 4, 5 ],
-              "status" : "deleted"
-            }, {
-              "key" : "numbers4",
-              "newValue" : [ 4, 5, 6 ],
-              "status" : "added"
-            }, {
-              "key" : "obj1",
-              "newValue" : {
-                "nestedKey" : "value",
-                "isNested" : true
-              },
-              "status" : "added"
-            }, {
-              "key" : "setting1",
-              "oldValue" : "Some value",
-              "newValue" : "Another value",
-              "status" : "changed"
-            }, {
-              "key" : "setting2",
-              "oldValue" : 200,
-              "newValue" : 300,
-              "status" : "changed"
-            }, {
-              "key" : "setting3",
-              "oldValue" : true,
-              "newValue" : "none",
-              "status" : "changed"
-            } ]""";
-
     @Test
     void testGenerate() throws Exception {
 
@@ -165,8 +93,10 @@ public class DifferTest {
         Path filePath1 = Path.of("src/test/resources/file1.json");
         Path filePath2 = Path.of("src/test/resources/file2.json");
 
-        assertThat(Differ.generate(filePath1.toFile(), filePath2.toFile(), "json"))
-                .isEqualToNormalizingWhitespace(expectedJson);
+        String actual = Differ.generate(filePath1.toFile(), filePath2.toFile(), "json");
+        String expectedJson = Files.readString(Path.of("src/test/resources/expected.json"));
+
+        assertThat(actual).isEqualTo(expectedJson);
     }
 
     @Test
@@ -175,7 +105,9 @@ public class DifferTest {
         Path filePath1 = Path.of("src/test/resources/file1.yaml");
         Path filePath2 = Path.of("src/test/resources/file2.yaml");
 
-        assertThat(Differ.generate(filePath1.toFile(), filePath2.toFile(), "json"))
-                .isEqualToNormalizingWhitespace(expectedJson);
+        String actual = Differ.generate(filePath1.toFile(), filePath2.toFile(), "json");
+        String expectedJson = Files.readString(Path.of("src/test/resources/expected.json"));
+
+        assertThat(actual).isEqualTo(expectedJson);
     }
 }
