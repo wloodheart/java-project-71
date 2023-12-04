@@ -8,7 +8,7 @@ import java.nio.file.Path;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class DifferTest {
-    String expected = """
+    private final String expected = """
             {
                 chars1: [a, b, c]
               - chars2: [d, e, f]
@@ -35,7 +35,7 @@ public class DifferTest {
               + setting3: none
             }""";
 
-    String expectedPlain = """
+    private final String expectedPlain = """
             Property 'chars2' was updated. From [complex value] to false
             Property 'checked' was updated. From false to true
             Property 'default' was updated. From null to [complex value]

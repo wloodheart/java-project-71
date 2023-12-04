@@ -14,13 +14,23 @@ import java.util.TreeMap;
 public class Parser {
     public static Map<String, Object> parse(File file) throws Exception {
         String fileType = getFileType(file);
-        ObjectMapper mapper;
+        ObjectMapper mapper = getMapperByFileType(fileType);
+        return mapper.<TreeMap<String, Object>>readValue(Files.readString(file.toPath()), new TypeReference<>() {
+        });
+    }
+
+    public static ObjectMapper getMapperByFileType(String fileType) {
         switch (fileType) {
-            case "yaml", "yml" -> mapper = new YAMLMapper(new YAMLFactory());
-            case "json" -> mapper = new JsonMapper();
-            default -> mapper = new ObjectMapper();
+            case "yaml", "yml" -> {
+                return new YAMLMapper(new YAMLFactory());
+            }
+            case "json" -> {
+                return new JsonMapper();
+            }
+            default -> {
+                return new ObjectMapper();
+            }
         }
-        return mapper.<TreeMap<String, Object>>readValue(Files.readString(file.toPath()), new TypeReference<>() { });
     }
 
     public static String getFileType(File file) {
