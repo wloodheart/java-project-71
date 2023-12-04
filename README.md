@@ -5,7 +5,7 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/ca259813b7d4b9304e11/test_coverage)](https://codeclimate.com/github/wloodheart/java-project-71/test_coverage)
 
 ### JSON demo:
-[![asciicast](https://asciinema.org/a/624694.svg)](https://asciinema.org/a/624694)
+[![asciicast](https://asciinema.org/a/624924.svg)](https://asciinema.org/a/624924)
 
 ### YAML demo:
-[![asciicast](https://asciinema.org/a/624824.svg)](https://asciinema.org/a/624824)
+[![asciicast](https://asciinema.org/a/624925.svg)](https://asciinema.org/a/624925)
