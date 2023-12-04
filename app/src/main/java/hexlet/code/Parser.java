@@ -16,7 +16,7 @@ public class Parser {
         String fileType = getFileType(file);
         ObjectMapper mapper;
         switch (fileType) {
-            case "yaml" -> mapper = new YAMLMapper(new YAMLFactory());
+            case "yaml", "yml" -> mapper = new YAMLMapper(new YAMLFactory());
             case "json" -> mapper = new JsonMapper();
             default -> mapper = new ObjectMapper();
         }
