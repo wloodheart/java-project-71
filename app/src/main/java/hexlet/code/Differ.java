@@ -16,8 +16,8 @@ public class Differ {
         Map<String, Object> data2 = Parser.parse(file2);
 
         Map<String, String> diffMap = genDiff(data1, data2);
-        String diffs = styleByFormat(diffMap, data1, data2, format);
-        return diffs;
+
+        return Formatter.styleByFormat(diffMap, data1, data2, format);
     }
 
     public static String generate(File file1, File file2) throws Exception {
@@ -41,15 +41,6 @@ public class Differ {
                 result.put(key, "unchanged");
             }
         }
-
         return result;
-    }
-
-    public static String styleByFormat(Map<String, String> diffs, Map<String, Object> data1, Map<String, Object> data2, String format) {
-        switch (format) {
-            default -> {
-                return Stylish.format(diffs, data1, data2);
-            }
-        }
     }
 }

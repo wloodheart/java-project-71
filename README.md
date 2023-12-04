@@ -9,3 +9,6 @@
 
 ### YAML demo:
 [![asciicast](https://asciinema.org/a/624925.svg)](https://asciinema.org/a/624925)
+
+### Plain format demo:
+[![asciicast](https://asciinema.org/a/624951.svg)](https://asciinema.org/a/624951)
