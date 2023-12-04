@@ -56,7 +56,7 @@ public class DifferTest {
         Path filePath1 = Path.of("src/test/resources/file1.json");
         Path filePath2 = Path.of("src/test/resources/file2.json");
 
-        assertThat(Differ.generate(filePath1.toFile(), filePath2.toFile())).isEqualTo(expected);
+        assertThat(Differ.generate(filePath1.toString(), filePath2.toString())).isEqualTo(expected);
     }
 
     @Test
@@ -65,7 +65,7 @@ public class DifferTest {
         Path filePath1 = Path.of("src/test/resources/file1.yaml");
         Path filePath2 = Path.of("src/test/resources/file2.yaml");
 
-        assertThat(Differ.generate(filePath1.toFile(), filePath2.toFile())).isEqualTo(expected);
+        assertThat(Differ.generate(filePath1.toString(), filePath2.toString())).isEqualTo(expected);
     }
 
     @Test
@@ -74,7 +74,7 @@ public class DifferTest {
         Path filePath1 = Path.of("src/test/resources/file1.json");
         Path filePath2 = Path.of("src/test/resources/file2.json");
 
-        assertThat(Differ.generate(filePath1.toFile(), filePath2.toFile(), "plain")).isEqualTo(expectedPlain);
+        assertThat(Differ.generate(filePath1.toString(), filePath2.toString(), "plain")).isEqualTo(expectedPlain);
     }
 
     @Test
@@ -83,7 +83,7 @@ public class DifferTest {
         Path filePath1 = Path.of("src/test/resources/file1.yaml");
         Path filePath2 = Path.of("src/test/resources/file2.yaml");
 
-        assertThat(Differ.generate(filePath1.toFile(), filePath2.toFile(), "plain")).isEqualTo(expectedPlain);
+        assertThat(Differ.generate(filePath1.toString(), filePath2.toString(), "plain")).isEqualTo(expectedPlain);
     }
 
     @Test
@@ -92,7 +92,7 @@ public class DifferTest {
         Path filePath1 = Path.of("src/test/resources/file1.json");
         Path filePath2 = Path.of("src/test/resources/file2.json");
 
-        String actual = Differ.generate(filePath1.toFile(), filePath2.toFile(), "json");
+        String actual = Differ.generate(filePath1.toString(), filePath2.toString(), "json");
         String expectedJson = Files.readString(Path.of("src/test/resources/expected.json"));
 
         assertThat(actual).isEqualTo(expectedJson);
@@ -104,7 +104,7 @@ public class DifferTest {
         Path filePath1 = Path.of("src/test/resources/file1.yaml");
         Path filePath2 = Path.of("src/test/resources/file2.yaml");
 
-        String actual = Differ.generate(filePath1.toFile(), filePath2.toFile(), "json");
+        String actual = Differ.generate(filePath1.toString(), filePath2.toString(), "json");
         String expectedJson = Files.readString(Path.of("src/test/resources/expectedYaml.json"));
 
         assertThat(actual).isEqualTo(expectedJson);

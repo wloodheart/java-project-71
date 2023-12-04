@@ -11,17 +11,17 @@ import java.util.Objects;
 
 public class Differ {
 
-    public static String generate(File file1, File file2, String format) throws Exception {
-        Map<String, Object> data1 = Parser.parse(file1);
-        Map<String, Object> data2 = Parser.parse(file2);
+    public static String generate(String filePath1, String filePath2, String format) throws Exception {
+        Map<String, Object> data1 = Parser.parse(new File(filePath1));
+        Map<String, Object> data2 = Parser.parse(new File(filePath2));
 
         List<Map<String, Object>> diffMap = genDiff(data1, data2);
 
         return Formatter.styleByFormat(diffMap, format);
     }
 
-    public static String generate(File file1, File file2) throws Exception {
-        return generate(file1, file2, "stylish");
+    public static String generate(String filePath1, String filePath2) throws Exception {
+        return generate(filePath1, filePath2, "stylish");
     }
 
     public static List<Map<String, Object>> genDiff(Map<String, Object> data1, Map<String, Object> data2) {
